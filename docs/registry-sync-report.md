@@ -40,7 +40,7 @@ repository moved, was renamed, or was withdrawn.
 
 1. Open the URL. If the repository moved, update `source_url` and `id`.
 2. If the skill was withdrawn, remove the entry and add the gap it leaves to
-   `gap_map`, so the mentor keeps covering that ground itself.
+   `gap_map`, so the gap is stated instead of silently disappearing.
 3. If the URL is fine and the check was wrong, ignore it - a rate limit or a
    transient outage looks identical to a deletion from here.
 4. Update `last_verified` in the stack file whenever you confirm an entry by hand.

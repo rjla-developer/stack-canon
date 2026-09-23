@@ -71,13 +71,13 @@
       "gap": "testing-strategy",
       "why_it_matters": "No Flutter framework-team skill decides which behavior belongs in a unit, widget, golden or integration test. Teams default to whatever is easiest to write, which is usually the slowest layer.",
       "filled_by": "LambdaTest/agent-skills#flutter-testing-skill",
-      "fallback": "The mentor applies references/quality-gate.md directly."
+      "fallback": "Apply rule 2 of SKILL.md directly: business rules and presentation rules, at the exact boundary, plus a real run of the suite."
     },
     {
       "gap": "app-architecture",
       "why_it_matters": "Layout and routing skills operate inside a widget. Nothing tells the agent when a feature folder has outgrown itself or when a widget should become a package.",
       "filled_by": null,
-      "fallback": "The mentor applies references/growth-signals.md with the stack thresholds below."
+      "fallback": "Apply rule 1 of SKILL.md and measure against this file's growth_thresholds."
     },
     {
       "gap": "golden-test-environment",
@@ -198,7 +198,7 @@
       {
         "name": "Three layers (UI + Domain + Data)",
         "use_when": "a second view model needs the same composed logic, or one view model has to merge several repositories",
-        "cost": "one more hop for every read; premature use-cases are the over-abstraction signal in growth-signals.md"
+        "cost": "one more hop for every read; premature use-cases are the classic over-abstraction signal"
       }
     ],
     "rules": [

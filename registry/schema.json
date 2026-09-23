@@ -234,7 +234,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Checkable test rules for this stack, written verbatim into the project's CLAUDE.md. Stack-specific only: generic doctrine already lives in references/quality-gate.md and repeating it wastes the 150-line budget."
+          "description": "Checkable test rules for this stack, written verbatim into the project's CLAUDE.md. Stack-specific only: the generic doctrine is rule 2 of SKILL.md and repeating it wastes the 150-line budget."
         },
         "traps": {
           "type": "array",
@@ -265,14 +265,14 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Stack-specific overrides of references/growth-signals.md. Every value states the number AND the unit so the threshold is auditable."
+      "description": "Growth thresholds for this stack. Every value states the number AND the unit so the threshold is auditable."
     },
     "dead_code_risks": {
       "type": "array",
       "items": {
         "type": "string"
       },
-      "description": "Patterns in this stack that look unreferenced but are not. Feeds mentor-clean's requires_human_review classification."
+      "description": "Patterns in this stack that look unreferenced but are not. Read before proposing any deletion: removal needs written evidence of non-use."
     },
     "notes": {
       "type": "string"
@@ -427,7 +427,7 @@
     "operability": {
       "type": "object",
       "additionalProperties": false,
-      "description": "What this stack needs to survive real users, expressed as things a reader can check. The gates themselves are stack-agnostic and live in references/delivery-gates.md; this records how each one looks HERE.",
+      "description": "What this stack needs to survive real users, expressed as things a reader can check. This records what each gate looks like in THIS stack, as something a reader can check.",
       "properties": {
         "failure_boundaries": {
           "type": "array",

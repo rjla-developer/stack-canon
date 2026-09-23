@@ -90,7 +90,7 @@
       "gap": "testing-strategy",
       "why_it_matters": "The Vercel collection is performance- and design-oriented. Nothing in it decides what deserves a test, so behavior changes ship untested by default.",
       "filled_by": "LambdaTest/agent-skills#vitest-skill or #jest-skill for authoring",
-      "fallback": "The mentor applies references/quality-gate.md directly.",
+      "fallback": "Apply rule 2 of SKILL.md directly: business rules and presentation rules, at the exact boundary, plus a real run of the suite.",
       "needs_verification": true
     },
     {

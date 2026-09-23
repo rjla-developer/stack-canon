@@ -1,6 +1,6 @@
 # The registry
 
-What it is, how the mentor reads it, and how it stays current.
+What it is, how the skill reads it, and how it stays current.
 
 ## Contents
 
@@ -55,10 +55,10 @@ mandatory rather than polite.
 | `detection.markers` | Substrings that confirm it. Required when the manifest serves many stacks. |
 | `last_verified` | The date a human last confirmed every id, command and URL here |
 | `official_skills[].id` | `owner/repo`, or `owner/repo#skill` for one skill in a collection |
-| `official_skills[].owner_kind` | `framework-team` / `vendor` / `community`. The mentor states this when recommending, because it changes how much to trust the skill. |
+| `official_skills[].owner_kind` | `framework-team` / `vendor` / `community`. The skill states this when recommending, because it changes how much to trust the source. |
 | `official_skills[].install` | Verbatim command, or `null` when unknown |
-| `official_skills[].covers` | What the mentor must NOT reimplement |
-| `official_skills[].does_not_cover` | What the mentor must handle itself |
+| `official_skills[].covers` | What must NOT be reimplemented |
+| `official_skills[].does_not_cover` | What must be handled without it |
 | `gap_map` | The uncovered ground, why it matters, who fills it, and the fallback |
 | `testing.commands` | Real commands. `full_suite` is required - the quality gate runs it. |
 | `growth_thresholds` | Stack-specific overrides of the generic thresholds |
@@ -67,7 +67,7 @@ mandatory rather than polite.
 | `testing.rules` / `traps` / `what_not_to_test` | Stack-specific test judgment. `traps` records how a suite in this stack passes while the product is broken. |
 | `key_decisions` | The choices this stack forces with no framework default, each with the cost of getting it wrong. |
 | `operability` | What counts as a failure boundary here, where authorization lives, the observability idiom, and the commands that prove shippable. |
-| `dead_code_risks` | Patterns that look unreferenced but are alive. Feeds `/mentor-clean`. |
+| `dead_code_risks` | Patterns that look unreferenced but are alive. Read before proposing a deletion. |
 
 ## The honesty rule
 
@@ -85,7 +85,7 @@ mandatory rather than polite.
 `scripts/validate_registry.py` fails the build when `install` is `null` without
 `needs_verification: true`, so the honest path is also the only path that passes CI.
 
-When the mentor reads an entry flagged this way, it repeats the caveat to the user rather
+When the skill reads an entry flagged this way, it repeats the caveat to the user rather
 than hiding the entry. An honest gap is more useful than a plausible guess, because a
 plausible guess is indistinguishable from a fact until it 404s.
 

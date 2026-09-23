@@ -50,13 +50,13 @@
       "gap": "test-strategy",
       "why_it_matters": "angular-developer covers testing APIs, not which behavior deserves a test. API knowledge without strategy produces suites that test the framework rather than the product.",
       "filled_by": null,
-      "fallback": "The mentor applies references/quality-gate.md directly."
+      "fallback": "Apply rule 2 of SKILL.md directly: business rules and presentation rules, at the exact boundary, plus a real run of the suite."
     },
     {
       "gap": "module-and-library-boundaries",
       "why_it_matters": "Angular workspaces grow into many libs. Nothing tells the agent when a folder should become a library, or when a shared lib has become a dumping ground.",
       "filled_by": null,
-      "fallback": "The mentor applies references/growth-signals.md with the stack thresholds below."
+      "fallback": "Apply rule 1 of SKILL.md and measure against this file's growth_thresholds."
     }
   ],
   "testing": {

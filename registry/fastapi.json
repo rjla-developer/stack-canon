@@ -103,7 +103,7 @@
       "gap": "test-strategy",
       "why_it_matters": "Router scaffolding produces endpoints fast. Nothing decides which of them carry business rules worth testing, so the suite ends up asserting that FastAPI can serialize a model.",
       "filled_by": "LambdaTest/agent-skills#pytest-skill for authoring, trailofbits/skills#property-based-testing for invariants",
-      "fallback": "The mentor applies references/quality-gate.md directly."
+      "fallback": "Apply rule 2 of SKILL.md directly: business rules and presentation rules, at the exact boundary, plus a real run of the suite."
     },
     {
       "gap": "database-and-migrations",

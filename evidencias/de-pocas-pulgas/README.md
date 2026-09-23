@@ -156,9 +156,11 @@ baseline sacó el suyo a `src/scripts/` como archivos aparte.
 - **Una corrida por lado.** La salida de un modelo varía. Es una anécdota, no una
   medición; harían falta tres por lado para publicar cualquier tasa.
 - **Nadie evaluó la experiencia** de los dos sitios, sólo el código y las métricas.
-- **El diseño es prácticamente idéntico** en ambos. La herramienta tiene dos pilares y
-  ninguno es diseño; no lo prometía y no lo entrega.
+- **El diseño es prácticamente idéntico** en ambos. Cuando se corrió esto la herramienta
+  tenía dos pilares y ninguno era diseño; no lo prometía y no lo entrega.
 - **Ocho de los nueve stacks del catálogo** nunca se han probado en una corrida.
+- **La regla 3** — mantener el documento de reglas de negocio del grupo — se agregó en
+  1.1.0, después de estas corridas. Nada de este registro la mide.
 
 # Ruido conocido del método
 

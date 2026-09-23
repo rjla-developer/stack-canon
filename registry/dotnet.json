@@ -91,13 +91,13 @@
       "gap": "test-strategy",
       "why_it_matters": "dotnet-test covers execution and testability but not selection. The judgment about which behavior earns a test stays uncovered.",
       "filled_by": null,
-      "fallback": "The mentor applies references/quality-gate.md directly."
+      "fallback": "Apply rule 2 of SKILL.md directly: business rules and presentation rules, at the exact boundary, plus a real run of the suite."
     },
     {
       "gap": "solution-and-project-boundaries",
       "why_it_matters": ".NET solutions accumulate projects. Nothing decides when a folder should become a project, or when a shared project has turned into a grab bag that every other project references.",
       "filled_by": null,
-      "fallback": "The mentor applies references/growth-signals.md with the stack thresholds below."
+      "fallback": "Apply rule 1 of SKILL.md and measure against this file's growth_thresholds."
     }
   ],
   "testing": {

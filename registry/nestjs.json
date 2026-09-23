@@ -70,7 +70,7 @@
       "gap": "test-strategy",
       "why_it_matters": "Nest's DI container makes it trivial to mock everything, which produces suites that pass while the wiring is broken. Someone has to decide which seams are real and which mocks are lies.",
       "filled_by": null,
-      "fallback": "The mentor applies references/quality-gate.md, and requires at least one test per feature that exercises the real module wiring."
+      "fallback": "Apply rule 2 of SKILL.md, and require at least one test per feature that exercises the real module wiring."
     },
     {
       "gap": "authorization-boundary",

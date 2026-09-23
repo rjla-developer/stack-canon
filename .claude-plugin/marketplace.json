@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "Marketplace hosting the stack-canon plugin.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "stack-canon",
       "source": "./",
-      "description": "Orchestrator and technical mentor: finds the right official skills for your stack, names what they do not cover, and explains the reasoning behind every recommendation."
+      "description": "Applies the architecture each framework team publishes for its own stack, keeps business rules and presentation rules tested at their exact boundaries, and keeps the group's business-rules document current as the code changes."
     }
   ]
 }

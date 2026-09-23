@@ -1,8 +1,11 @@
 # Roadmap
 
-The 21 stacks the registry does not cover yet. Astro was the first entry written from a real build rather than from research alone. Every one is ready to be copied into an
+The 21 stacks the registry does not cover yet. Every one is ready to be copied into an
 issue and picked up - each is labelled `good first contribution`, because adding a stack
 needs research and honesty rather than familiarity with this codebase.
+
+Astro, already in the registry, is the one entry written from a real build rather than from
+research alone. That is the higher bar, not the requirement.
 
 ## Contents
 
@@ -53,10 +56,9 @@ starts from research instead of from nothing.
 | Ionic | `ionic` | Hybrid - decide `category` deliberately and justify it in `notes`. |
 | shadcn/ui | `shadcn-ui` | Component library rather than a stack; probably belongs in `index.json` cross-cutting. Decide and say why. |
 
-## Stack judgment: complete
+## Stack judgment
 
-Every stack in the registry now carries the four judgment fields. This is what separates a
-catalog of links from a tool with an opinion.
+What separates a catalog of links from a tool with an opinion:
 
 | Field | What it answers |
 |---|---|
@@ -65,21 +67,17 @@ catalog of links from a tool with an opinion.
 | `key_decisions` | The choices the stack forces with no framework default |
 | `operability` | What a boundary, an authorization decision and a shippable build look like here |
 
-| Stack | architecture | testing | key_decisions | operability |
-|---|---|---|---|---|
-| Flutter | framework-team | framework-team | done | done |
-| Next.js / React | framework-team | framework-team | done | done |
-| NestJS | framework-team | framework-team | done | done |
-| Angular | needs_verification | done | done | done |
-| React Native / Expo | needs_verification | done | done | done |
-| FastAPI | needs_verification | framework-team | done | done |
-| Spring Boot | needs_verification | framework-team | done | done |
-| .NET | needs_verification | framework-team | done | done |
+All nine stacks carry `architecture` sourced from the framework team's own documentation,
+plus `testing` and `key_decisions`. One gap remains:
 
-`needs_verification` on architecture means the layering is the mentor's judgment built on
-documented conventions, not a maintainer mandate. The mentor says so when it recommends.
-**Confirming those five against primary sources is the highest-value contribution
-available right now** - the research is done, what is missing is a maintainer quote.
+| Stack | operability |
+|---|---|
+| Astro | **missing** |
+| Flutter, Next.js, NestJS, Angular, Expo, FastAPI, Spring Boot, .NET | done |
+
+Astro was added after the field existed and never got one. What a boundary, an
+authorization decision and a shippable build look like in a mostly-static island
+architecture is a real question, which is why the entry is empty rather than guessed.
 
 ## How to fill a field without writing documentation
 

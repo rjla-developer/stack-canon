@@ -68,7 +68,7 @@ def check_stack_entry(name: str, data: dict) -> None:
     expected_stack = name[: -len(".json")]
     if data.get("stack") != expected_stack:
         error(name, 'field "stack" is "{}" but the filename says "{}". '
-                    "They must match so the mentor can resolve a stack to a file."
+                    "They must match so the skill can resolve a stack to a file."
               .format(data.get("stack"), expected_stack))
 
     if not STACK_KEY_RE.match(str(data.get("stack", ""))):
@@ -81,7 +81,7 @@ def check_stack_entry(name: str, data: dict) -> None:
     last_verified = str(data.get("last_verified", ""))
     if not DATE_RE.match(last_verified):
         error(name, 'field "last_verified" must be YYYY-MM-DD, got "{}". '
-                    "The mentor shows this date to the user, so a wrong format hides staleness."
+                    "The skill shows this date to the user, so a wrong format hides staleness."
               .format(last_verified))
 
     for key in ("detection", "testing", "growth_thresholds"):
@@ -110,13 +110,13 @@ def check_stack_entry(name: str, data: dict) -> None:
         if skill.get("install") is None and not skill.get("needs_verification"):
             error(where, 'install is null but needs_verification is not true. '
                          "An unknown install command must be declared unknown so the "
-                         "mentor warns the user instead of guessing one.")
+                         "skill warns the user instead of guessing one.")
         owner_kind = skill.get("owner_kind")
         if owner_kind is not None and owner_kind not in VALID_OWNER_KINDS:
             error(where, 'owner_kind "{}" is not one of {}.'
                   .format(owner_kind, sorted(VALID_OWNER_KINDS)))
         if owner_kind is None:
-            warn(where, "no owner_kind. The mentor states who publishes a skill when "
+            warn(where, "no owner_kind. The skill states who publishes a skill when "
                         "recommending it; without this it cannot.")
         source_url = str(skill.get("source_url", ""))
         if not source_url.startswith("https://"):
@@ -125,7 +125,7 @@ def check_stack_entry(name: str, data: dict) -> None:
     testing_block = data.get("testing") or {}
     if not testing_block.get("rules"):
         warn(name, "testing has no stack-specific rules. Generic doctrine already lives "
-                   "in references/quality-gate.md; without rules here the mentor adds "
+                   "in rule 2 of SKILL.md; without rules here the model adds "
                    "nothing a capable model does not already do. See docs/ROADMAP.md.")
     if not data.get("key_decisions"):
         warn(name, "no key_decisions. These are the choices the stack forces with no "
@@ -133,7 +133,7 @@ def check_stack_entry(name: str, data: dict) -> None:
 
     architecture = data.get("architecture")
     if architecture is None:
-        warn(name, "no architecture block. The mentor then has nothing to say about which "
+        warn(name, "no architecture block. The skill then has nothing to say about which "
                    "structural variant this stack's team recommends - the judgment a "
                    "senior actually supplies. See docs/ROADMAP.md.")
     elif architecture.get("recommended_by") == "framework-team" \
@@ -167,7 +167,7 @@ def check_index(index: dict, stack_files: list) -> None:
 
     for missing in sorted(on_disk - set(declared)):
         error("index.json", 'registry/{}.json exists but is not listed in "stacks". '
-                            "The mentor reads index.json first, so an unlisted stack is invisible."
+                            "The skill reads index.json first, so an unlisted stack is invisible."
               .format(missing))
     for phantom in sorted(set(declared) - on_disk):
         error("index.json", 'lists stack "{}" but registry/{}.json does not exist.'
@@ -182,13 +182,13 @@ def check_index(index: dict, stack_files: list) -> None:
             error("index.json", 'stack "{}" has a malformed last_verified.'.format(stack))
         if "has_framework_team_skill" not in entry:
             error("index.json", 'stack "{}" is missing has_framework_team_skill. '
-                                "The mentor tells the user when a stack has no "
+                                "The skill tells the user when a stack has no "
                                 "framework-team skill; this field is how it knows."
                   .format(stack))
 
     if not DATE_RE.match(str(index.get("synced_at", ""))):
         error("index.json", '"synced_at" must be YYYY-MM-DD. It is shown to the user '
-                            "verbatim when the mentor falls back to the bundled copy.")
+                            "verbatim when the skill falls back to the bundled copy.")
 
     base = str(index.get("raw_base_url", ""))
     if not base.startswith("https://") or not base.endswith("/"):

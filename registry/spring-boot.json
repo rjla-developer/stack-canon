@@ -66,7 +66,7 @@
       "gap": "test-strategy",
       "why_it_matters": "@SpringBootTest is the path of least resistance and boots the whole context for every test. Suites built that way get slow enough that people stop running them, which is worse than having fewer tests.",
       "filled_by": null,
-      "fallback": "The mentor applies references/quality-gate.md, and pushes tests down to plain unit tests and slice tests (@WebMvcTest, @DataJpaTest) unless full-context wiring is the thing under test."
+      "fallback": "Apply rule 2 of SKILL.md, and push tests down to plain unit tests and slice tests (@WebMvcTest, @DataJpaTest) unless full-context wiring is the thing under test."
     }
   ],
   "testing": {

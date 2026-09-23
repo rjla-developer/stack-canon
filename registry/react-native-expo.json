@@ -95,7 +95,7 @@
       "gap": "test-strategy",
       "why_it_matters": "Neither collection decides what deserves a test on a mobile client, where the slow layers (device E2E) are extremely tempting and extremely expensive.",
       "filled_by": "LambdaTest/agent-skills#detox-skill for authoring device tests",
-      "fallback": "The mentor applies references/quality-gate.md directly.",
+      "fallback": "Apply rule 2 of SKILL.md directly: business rules and presentation rules, at the exact boundary, plus a real run of the suite.",
       "needs_verification": true
     },
     {

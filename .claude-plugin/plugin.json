@@ -1,7 +1,7 @@
 {
   "name": "stack-canon",
-  "version": "1.0.0",
-  "description": "Orchestrates the official agent skills published by framework teams, fills the gaps they leave, and mentors the developer on architecture, testing and code health - explaining the reasoning behind every recommendation.",
+  "version": "1.1.0",
+  "description": "Applies the architecture each framework team publishes for its own stack, keeps business rules and presentation rules tested at their exact boundaries, and keeps the group's business-rules document current as the code changes.",
   "author": {
     "name": "rjla-developer",
     "url": "https://github.com/rjla-developer"
@@ -10,12 +10,13 @@
   "repository": "https://github.com/rjla-developer/stack-canon",
   "license": "MIT",
   "keywords": [
-    "orchestration",
-    "mentoring",
     "architecture",
     "testing",
-    "code-quality",
-    "dead-code",
+    "documentation",
+    "business-rules",
+    "framework-conventions",
+    "claude-md",
+    "monorepo",
     "skill-registry"
   ]
 }

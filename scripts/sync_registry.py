@@ -109,7 +109,7 @@ def bump_synced_at(today: str) -> bool:
     pattern = re.compile(r'("synced_at"\s*:\s*")(\d{4}-\d{2}-\d{2})(")')
     match = pattern.search(content)
     if match is None:
-        die('index.json has no "synced_at" field with a YYYY-MM-DD value. The mentor '
+        die('index.json has no "synced_at" field with a YYYY-MM-DD value. The skill '
             "shows that date to users when it falls back to the bundled catalog, so it "
             "cannot be missing.")
     if match.group(2) == today:
@@ -180,7 +180,7 @@ def main() -> int:
         "",
         "1. Open the URL. If the repository moved, update `source_url` and `id`.",
         "2. If the skill was withdrawn, remove the entry and add the gap it leaves to",
-        "   `gap_map`, so the mentor keeps covering that ground itself.",
+        "   `gap_map`, so the gap is stated instead of silently disappearing.",
         "3. If the URL is fine and the check was wrong, ignore it - a rate limit or a",
         "   transient outage looks identical to a deletion from here.",
         "4. Update `last_verified` in the stack file whenever you confirm an entry by hand.",

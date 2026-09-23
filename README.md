@@ -1,11 +1,13 @@
 # stack-canon
 
-A Claude Code plugin that does two things and refuses to do more: it applies the
-architecture **each framework team publishes for its own stack**, and it makes sure
-business rules and presentation rules are both tested *and actually looked at*.
+A Claude Code plugin that does three things and refuses to do more: it applies the
+architecture **each framework team publishes for its own stack**, it makes sure business
+rules and presentation rules are both tested *and actually looked at*, and it keeps the
+group's business-rules document current as the code changes.
 
 It used to do nine things. Five measured experiments supported two of them, so the rest
-was cut. The experiments — including the ones this project lost — are in
+was cut; the third was added afterwards for multi-repository groups and is marked
+throughout as unmeasured. The experiments — including the ones this project lost — are in
 [evidencias/de-pocas-pulgas/](evidencias/de-pocas-pulgas/).
 
 ## Install

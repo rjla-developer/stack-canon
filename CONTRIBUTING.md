@@ -63,7 +63,7 @@ contribution. The next person starts from research instead of from nothing.
 ### `gap_map` is the most valuable field
 
 Anyone can list what a skill covers - the README says so. The gap map says what it leaves
-open, which is what the mentor then has to handle itself. An entry with an empty `gap_map`
+open, which is what then has to be handled without it. An entry with an empty `gap_map`
 is claiming a stack is fully covered; if you believe that, say why in `notes`.
 
 ## Verifying that a skill exists
@@ -79,7 +79,7 @@ Before writing an `official_skills` entry:
    from the project name.
 4. **Set `owner_kind` honestly.** `framework-team` means the people who maintain the
    framework. A well-known consultancy is `community`. A platform vendor is `vendor`. The
-   mentor tells users which one it is, so a wrong label misinforms them directly.
+   skill tells users which one it is, so a wrong label misinforms them directly.
 5. **Anything you could not do above** → `needs_verification: true` and a note saying what
    is unconfirmed.
 
@@ -90,7 +90,7 @@ pull request. Include what you ran or opened and what happened - a URL and an er
 beat a description.
 
 When a skill has been withdrawn, do not just delete the entry: move what it covered into
-`gap_map`, so the mentor keeps covering that ground itself.
+`gap_map`, so the gap is stated instead of silently disappearing.
 
 ## Changing a threshold
 
@@ -100,7 +100,7 @@ Thresholds in each stack's `growth_thresholds` are calibration, not law. To chan
 - what goes wrong at the current value - noisy on real code, or silent on a real problem,
 - an example from a real codebase.
 
-A miscalibrated threshold makes the mentor noisy, and a noisy mentor gets muted. This is a
+A miscalibrated threshold makes the skill noisy, and a noisy skill gets muted. This is a
 welcome kind of pull request.
 
 ## Editing the skills themselves
