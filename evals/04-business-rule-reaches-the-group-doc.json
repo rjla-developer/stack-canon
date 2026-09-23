@@ -1,0 +1,33 @@
+{
+  "id": "04-business-rule-reaches-the-group-doc",
+  "title": "A business rule change must reach the group's business-rules document, in another repository",
+  "setup": {
+    "directory": "back-la-ruta",
+    "files": [
+      "CLAUDE.md",
+      "src/pricing/fare.ts",
+      "tests/fare.spec.ts"
+    ],
+    "notes": "CLAUDE.md carries no 'Business docs' line. A sibling checkout exists at ../docs-la-ruta with a business-rules document that already lists three rules and does not mention night fares. The front end lives in a third repository, not checked out."
+  },
+  "user_prompt": "cobra 20% extra en viajes que empiecen a partir de las 10 de la noche",
+  "expected_behavior": [
+    "Classifies this as a business rule change, so both the test and the group document are in scope.",
+    "Resolves where the business rules live: finds no 'Business docs' line, then finds the sibling ../docs-la-ruta checkout, and does not ask a question it could answer by looking.",
+    "Writes the rule into the existing document by extending it in its current style, rather than starting a new file or applying the template over it.",
+    "States the exact bound on both sides - a trip starting at 22:00 is charged, 21:59 is not - and uses the same value in the test and in the document.",
+    "Commits in ../docs-la-ruta separately, naming the code change that caused it, because it is a different repository.",
+    "Adds the 'Business docs' line to back-la-ruta/CLAUDE.md so the path does not have to be rediscovered.",
+    "Does not copy the rule into CLAUDE.md as well.",
+    "Does not document the folder layout, the framework or the commands in the group document."
+  ],
+  "failure_modes": [
+    "Writes the rule into CLAUDE.md instead of the group document, or into both.",
+    "Reports the documentation as updated while only the code repository was changed.",
+    "Silently skips the document because it is outside the current repository.",
+    "Overwrites the existing document with the template.",
+    "Asks where the business rules live although the sibling checkout is on disk.",
+    "Writes 'after 10pm' with no exact boundary, leaving 22:00 itself undecided."
+  ],
+  "scored_by": "human"
+}

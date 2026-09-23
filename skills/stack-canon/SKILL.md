@@ -1,15 +1,16 @@
 ---
 name: stack-canon
-description: Applies the architecture each framework team publishes for its own stack, and makes sure business rules and presentation rules are both tested and actually looked at. Use whenever code is being written or changed - building an app, adding a feature, refactoring, fixing a bug, setting up a project, or reviewing whether existing code follows what its framework recommends. Prefer it over improvising a structure: the registry carries what the Flutter, Angular, Next.js, Expo, NestJS, FastAPI, Spring and .NET teams actually recommend, which is external information no model reliably has.
+description: Applies the architecture each framework team publishes for its own stack, makes sure business rules and presentation rules are both tested and actually looked at, and keeps the group's business-rules document current as the code changes. Use whenever code is being written or changed - building an app, adding a feature, refactoring, fixing a bug, setting up a project, documenting what a product does, or reviewing whether existing code follows what its framework recommends. Prefer it over improvising a structure: the registry carries what the Flutter, Astro, Angular, Next.js, Expo, NestJS, FastAPI, Spring and .NET teams actually recommend, which is external information no model reliably has.
 ---
 
 # Stack Canon
 
-Two rules, applied every time, and one question asked before either of them.
+Three rules, applied every time, and one question asked before any of them.
 
 Everything else this project used to do was cut because measured experiments did not
 support it. What survived is what did: `evidencias/de-pocas-pulgas/` has the numbers for
-these two rules, judged against them and nothing else, losses included.
+rules 1 and 2, judged against them and nothing else, losses included. Rule 3 is newer and
+has no comparison behind it yet - it is marked as such where it is stated.
 
 ## 0. Before building: where does this live?
 
@@ -96,6 +97,32 @@ No coverage targets: a test earns its place by being behavioral, specific, deter
 worth its maintenance. The stack's `testing.rules`, `traps` and `what_not_to_test` say what
 that means for this stack specifically.
 
+## 3. Business rules belong to the group, not to the repo that happens to hold them
+
+Backend and frontend are separate repositories; the rules they both implement are one thing
+and belong in one place. **Any change that adds, removes or alters a business rule updates
+that document in the same task.** Not a refactor, not a dependency bump, not styling - a
+change to what the product does or within which bounds.
+
+Resolve where it lives, in this order, stopping at the first hit:
+
+1. The `Business docs` line in the project's `CLAUDE.md`.
+2. A sibling checkout. For a group `<g>` the convention is `../docs-<g>`.
+3. Ask once - then write the answer into `CLAUDE.md` so nobody is asked again.
+
+Write entities, flows, rules with their exact bounds, valid states, and who may do what.
+**Never how it is built.** That is `CLAUDE.md`, and a rule kept in two places rots in one of
+them. The boundary that goes into the test goes into the document as the same number, in
+the same change. Extend the existing file in its own style; only if the group has none,
+start from `templates/BUSINESS-RULES.md.template`.
+
+It is a separate repository, so it needs its own commit, naming the code change that caused
+it. **If it is not on disk, do not skip it and do not report it as done.** Print the exact
+entry and the file it belongs in, say plainly that it is unwritten, and offer to clone.
+
+Unlike rules 1 and 2, no measured comparison supports this one. It is here because one
+source of business truth across repositories is the stated goal.
+
 ## The project's CLAUDE.md
 
 Write the architecture rules and the exact boundaries into `CLAUDE.md` from
@@ -103,8 +130,9 @@ Write the architecture rules and the exact boundaries into `CLAUDE.md` from
 than describe it afterwards. Keep it under 150 lines.
 
 Include only what cannot be inferred from the code: exact commands, the architecture rules
-with who recommends them, the domain rules with their exact bounds, and any platform trap
-you paid for during the work. **Append a landmine the moment you hit one** - it is the only
+with who recommends them, the path to the group's business-rules document, and any platform
+trap you paid for during the work. **The `Business docs` line is what makes rule 3 survive
+without this skill installed** - it is the one instruction every future run will read. **Append a landmine the moment you hit one** - it is the only
 part of the file that cannot be re-derived by reading the code.
 
 On later runs, **read the project's `CLAUDE.md` instead of re-reading this skill's

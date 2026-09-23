@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.1.0
+
+### Added
+
+- **Rule 3: the group's business rules live in one document.** A change that adds, removes
+  or alters a business rule now updates that document in the same task, with the same exact
+  bound the test uses, committed in the repository that holds it. Written for groups where
+  backend and frontend are separate repositories implementing one set of rules - the
+  document is resolved from the `Business docs` line in `CLAUDE.md`, then from a sibling
+  `../docs-<group>` checkout, and only then by asking.
+
+  **No measured comparison supports this rule**, unlike rules 1 and 2. It is stated as such
+  in `SKILL.md` and in the README, and it stays that way until an experiment says otherwise.
+
+- **`templates/BUSINESS-RULES.md.template`** - entities, vocabulary, states with their legal
+  transitions, rules with their exact bound and the test that holds it, permissions,
+  cross-repository flows, and undecided rules recorded so they are not silently invented.
+
+### Changed
+
+- **`CLAUDE.md` no longer carries domain rules.** It carries the path to the document that
+  does. The template's `Domain rules` section became `Business rules`, holding the
+  `Business docs` line and the instruction to update it - a bound kept in two places rots
+  in one of them.
+- **Astro was missing from the skill's description**, so the skill could fail to trigger in
+  an Astro project although `registry/astro.json` has shipped since 1.0.0.
+
 ## 0.2.0
 
 Everything here came out of two controlled comparisons against a baseline of 57 personal

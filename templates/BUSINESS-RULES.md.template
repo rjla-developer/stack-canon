@@ -1,0 +1,97 @@
+<!--
+  The group's business rules. One document for every repository in the group - backend,
+  frontend, jobs, mobile. The rule is written once here and implemented in as many
+  repositories as need it.
+
+  This file answers "what does this product do and within which bounds". It never answers
+  "how is it built": folder layout, frameworks, commands and architecture belong to each
+  repository's CLAUDE.md. A rule kept in two places rots in one of them.
+
+  Written for a reader with no context - a new teammate, or a model opening the group for
+  the first time. Every rule carries its exact bound and the test that holds it, so a
+  disagreement between this file and the code is decidable rather than debatable.
+
+  Replace every {{PLACEHOLDER}} and delete what does not apply.
+-->
+
+# {{PRODUCT_NAME}} — business rules
+
+{{ONE_PARAGRAPH_WHAT_THE_PRODUCT_DOES_AND_FOR_WHOM}}
+
+## Repositories
+
+<!-- Which repository implements what. The only structural fact this file carries, and it
+     is here because a rule is useless if you cannot find where it runs. -->
+
+| Repository | Implements |
+|---|---|
+| `{{REPO}}` | {{WHAT_PART_OF_THE_DOMAIN}} |
+
+## Vocabulary
+
+<!-- A term whose everyday meaning is not its meaning here. If the team argued about a word
+     once, it belongs in this table. Skip the words that mean what they appear to mean. -->
+
+| Term | In this product it means |
+|---|---|
+| {{TERM}} | {{DEFINITION_THAT_RULES_OUT_THE_OBVIOUS_WRONG_READING}} |
+
+## Entities
+
+<!-- What the business is about, not what the tables look like. For each one: what it is,
+     what makes it unique, and what it may never be. -->
+
+### {{ENTITY}}
+
+{{WHAT_IT_IS_IN_ONE_SENTENCE}}
+
+- Identified by: {{WHAT_MAKES_IT_UNIQUE}}
+- Never: {{THE_STATE_IT_MUST_NEVER_REACH}}
+
+## States
+
+<!-- Only for entities that move through states. List the legal transitions; a transition
+     that is not listed is illegal, which is what makes this section worth writing. -->
+
+`{{ENTITY}}`: {{STATE_A}} → {{STATE_B}} → {{STATE_C}}
+
+- {{STATE_B}} → {{STATE_A}} is {{ALLOWED_UNDER_WHICH_CONDITION_OR_NEVER}}.
+- {{WHAT_TRIGGERS_EACH_TRANSITION}}
+
+## Rules
+
+<!-- The heart of the file. Every rule states its exact bound, both sides of it, and the
+     test that holds it. "Around 80%" is not a rule; "80% or more, so 4/5 passes and 7/9
+     does not" is. When a rule changes, this line and that test change together. -->
+
+| # | Rule | Exact bound | Held by |
+|---|---|---|---|
+| {{N}} | {{WHAT_MUST_BE_TRUE}} | {{THE_NUMBER_AND_WHICH_SIDE_IS_IN}} | `{{REPO}}` → `{{TEST_FILE}}` |
+
+## Permissions
+
+<!-- Who may do what. One row per action that is not available to everyone. -->
+
+| Actor | May | May never |
+|---|---|---|
+| {{ROLE}} | {{ACTIONS}} | {{THE_ACTION_THAT_WOULD_BE_ASSUMED_ALLOWED}} |
+
+## Flows
+
+<!-- End-to-end paths that cross repositories, where no single codebase shows the whole
+     story. This is the section a model cannot reconstruct by reading one repo. -->
+
+### {{FLOW_NAME}}
+
+1. {{STEP}} — `{{REPO}}`
+2. {{STEP}} — `{{REPO}}`
+
+- Fails when: {{THE_FAILURE_CONDITION_AND_WHAT_THE_USER_IS_TOLD}}
+
+## Open questions
+
+<!-- A rule the business has not decided yet, written down so it is not silently invented
+     by whoever implements it next. Delete each line the day it is answered. -->
+
+- {{UNDECIDED_RULE}} — currently {{WHAT_THE_CODE_DOES_IN_THE_MEANTIME}}, which is a
+  placeholder, not a decision.

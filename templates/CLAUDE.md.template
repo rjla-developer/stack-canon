@@ -45,17 +45,27 @@ Structure: {{FOLDER_STRATEGY}}, recommended by {{WHO_RECOMMENDS_IT}}.
 - {{ARCHITECTURE_RULE_2}}
 - Do not add {{OPTIONAL_LAYER}} until {{THE_OBSERVED_REASON_THAT_WOULD_JUSTIFY_IT}}.
 
-## Domain rules
+## Business rules
 
-<!-- The product rules with their exact bounds. Change them only on request, and update
-     the tests in the same change. -->
+**They are not in this file.** They belong to the whole group, not to this repository:
 
-- {{RULE_WITH_ITS_EXACT_BOUNDARY}} — tested in {{TEST_FILE}}
+    Business docs: {{PATH_OR_URL_TO_THE_GROUP_DOCS_REPO}}
+
+<!-- Keep this line accurate even when the repository moves. It is the single instruction
+     that survives without the skill installed, and every rule below depends on it. -->
+
+Read it before changing behavior. When a change adds, removes or alters a business rule,
+**update that document in the same task and commit it there**, naming the change that
+caused it. If the repository is not on disk, say the entry is unwritten — never report it
+as done.
+
+Do not restate rules here. A bound kept in two places rots in one of them.
 
 ## Quality gate
 
 - **Behavior changed** — a business rule, a contract, what the user sees — **then a test is
-  written or updated**, covering the exact boundary from both sides.
+  written or updated**, covering the exact boundary from both sides, and the same number is
+  written into the group's business-rules document.
 - **Run `{{TEST_COMMAND}}` at the end of every task and report the real output.** Never
   claim done without it.
 - **If it has a screen, launch it and look.** A green suite proves what you thought to

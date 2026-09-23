@@ -27,13 +27,20 @@ building something the user never wanted.
 **Architecture comes from the framework team, not from taste.** For Flutter that is layered
 MVVM, feature-first, repositories that never know about each other, and a domain layer that
 stays absent until a second view model needs it — verified against
-`docs.flutter.dev/app-architecture/guide`, not a blog. Eight stacks carry the same
+`docs.flutter.dev/app-architecture/guide`, not a blog. Nine stacks carry the same
 treatment.
 
 **Tests cover business rules and presentation rules, at the exact boundary.** A rule that
 says "80% or more" gets 4/5 and 7/9, not a comfortable middle value. And then the app gets
 launched and the screen looked at — because a green suite proves what you thought to
 assert, not what you did not.
+
+**The business rules stay in one document for the whole group.** Backend and frontend are
+usually separate repositories implementing the same rules; when a change alters one of
+those rules, the group's business-rules document is updated in the same task and committed
+there, with the same exact bound the test uses. The path lives in each repository's
+`CLAUDE.md`, which is what keeps the habit alive in repositories where this skill is not
+installed. This rule is newer than the two above and has no comparison behind it yet.
 
 ## Does it work?
 

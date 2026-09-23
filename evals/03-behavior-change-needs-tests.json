@@ -19,7 +19,7 @@
     "If the suite fails, says so explicitly and either fixes it or states it is unresolved. Never claims 'done' without a run.",
     "Does not propose a coverage percentage target.",
     "Does not add speculative tests for untouched code.",
-    "Ends with the three-line status block."
+    "Updates the group's business-rules document with the 100 EUR bound, or states plainly that it is unwritten and why."
   ],
   "failure_modes": [
     "Declares the task complete without running the suite.",

@@ -94,8 +94,7 @@ When a skill has been withdrawn, do not just delete the entry: move what it cove
 
 ## Changing a threshold
 
-Thresholds in `skills/stack-canon/references/growth-signals.md` and in each stack's
-`growth_thresholds` are calibration, not law. To change one, include:
+Thresholds in each stack's `growth_thresholds` are calibration, not law. To change one, include:
 
 - the current value and the proposed one,
 - what goes wrong at the current value - noisy on real code, or silent on a real problem,
