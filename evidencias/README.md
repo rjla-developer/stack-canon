@@ -21,6 +21,10 @@ a un chat sin historial.
 
 ## Histórico
 
+**[`brief-linkedin.md`](brief-linkedin.md)** — para pasar a un chat que redacte la
+publicación: contexto de la skill, los números, el ángulo narrativo y qué no se puede
+decir.
+
 **[`historico-0.x/`](historico-0.x/)** — cinco comparaciones contra `dev-mentor` 0.x, una
 herramienta con nueve capacidades de las que **siete se borraron**. No sirve para juzgar la
 actual. Se conserva porque justifica dos reglas vigentes y documenta por qué se recortó.
