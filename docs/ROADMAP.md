@@ -1,6 +1,6 @@
 # Roadmap
 
-The 21 stacks the registry does not cover yet. Every one is ready to be copied into an
+The 19 stacks the registry does not cover yet. Every one is ready to be copied into an
 issue and picked up - each is labelled `good first contribution`, because adding a stack
 needs research and honesty rather than familiarity with this codebase.
 
@@ -29,7 +29,7 @@ starts from research instead of from nothing.
 
 | Stack | Key | Notes for the researcher |
 |---|---|---|
-| Node / Express | `express` | Check whether a framework-team skill exists at all; the ecosystem is fragmented. |
+| Node / Express | `express` | Check whether a framework-team skill exists at all; the ecosystem is fragmented. Fastify is already covered - do not duplicate its testing entries. |
 | Django | `django` | Look for a Django Software Foundation collection; check Python cross-cutting skills too. |
 | Laravel | `laravel` | Laravel ships strong first-party tooling; check whether skills accompany it. |
 | Go (Gin / Echo) | `go-web` | May need splitting per framework if detection markers diverge. |
@@ -48,7 +48,6 @@ starts from research instead of from nothing.
 | Vue 3 | `vue` | Check for a Vue core-team collection. |
 | Nuxt | `nuxt` | Detection must distinguish it from plain Vue. |
 | Svelte / SvelteKit | `sveltekit` | Filesystem routing means convention files dominate `dead_code_risks`. |
-| SwiftUI | `swiftui` | Community skills exist; verify publishers carefully before labelling one framework-team. |
 | Jetpack Compose | `jetpack-compose` | Check for a Google/Android collection. |
 | Solid.js | `solidjs` | Small ecosystem; an honest empty `official_skills` may be the right answer. |
 | Remix / React Router | `remix` | Overlaps `nextjs` on the React cross-cutting skills; do not duplicate them. |
@@ -67,15 +66,15 @@ What separates a catalog of links from a tool with an opinion:
 | `key_decisions` | The choices the stack forces with no framework default |
 | `operability` | What a boundary, an authorization decision and a shippable build look like here |
 
-All nine stacks carry `architecture` sourced from the framework team's own documentation,
+All eleven stacks carry `architecture` sourced from the framework team's own documentation,
 plus `testing` and `key_decisions`. One gap remains:
 
 | Stack | operability |
 |---|---|
-| Astro | **missing** |
+| Astro, Fastify, SwiftUI | **missing** |
 | Flutter, Next.js, NestJS, Angular, Expo, FastAPI, Spring Boot, .NET | done |
 
-Astro was added after the field existed and never got one. What a boundary, an
+Astro, Fastify and SwiftUI were added after the field existed and never got one. What a boundary, an
 authorization decision and a shippable build look like in a mostly-static island
 architecture is a real question, which is why the entry is empty rather than guessed.
 

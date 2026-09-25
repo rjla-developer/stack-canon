@@ -1,0 +1,185 @@
+{
+  "stack": "fastify",
+  "display_name": "Fastify",
+  "category": "backend",
+  "detection": {
+    "files": [
+      "package.json",
+      "app.js",
+      "app.ts",
+      "server.js",
+      "server.ts"
+    ],
+    "markers": [
+      "\"fastify\":",
+      "@fastify/autoload",
+      "fastify-plugin",
+      "fastify.register("
+    ]
+  },
+  "last_verified": "2026-09-25",
+  "official_skills": [],
+  "gap_map": [
+    {
+      "gap": "skills for people building WITH Fastify",
+      "why_it_matters": "The fastify org publishes exactly two SKILL.md files and both live in fastify/website - frontend-design and web-design-guidelines, for the documentation site itself. Neither teaches you to build a Fastify service. This is the same shape as the withastro case: a search for 'Fastify skills' leads to maintainer tooling.",
+      "filled_by": null,
+      "fallback": "Apply the architecture block below, verified against the Fastify team's own guides, and say plainly that no builder-facing skill exists."
+    },
+    {
+      "gap": "what deserves a test",
+      "why_it_matters": "Fastify documents inject() thoroughly and explicitly declines to pick a framework: 'Fastify does not offer a testing framework, but we do recommend a way to write your tests.' So the mechanism is prescribed and the strategy is not.",
+      "filled_by": null,
+      "fallback": "Apply rule 2 of SKILL.md with the layers below."
+    },
+    {
+      "gap": "authorization per route",
+      "why_it_matters": "Encapsulation makes it easy to attach an auth hook to a subtree and equally easy to register a route outside it. Nothing fails loudly when a route ends up unprotected.",
+      "filled_by": null,
+      "fallback": "Require every new route to declare its authorization decision explicitly, including 'public on purpose'."
+    }
+  ],
+  "architecture": {
+    "pattern": "plugin-per-feature with encapsulated contexts",
+    "folder_strategy": "hybrid",
+    "recommended_by": "framework-team",
+    "source_url": "https://fastify.dev/docs/latest/Guides/Plugins-Guide/",
+    "rules": [
+      "Load in the documented order: ecosystem plugins, then your plugins, then decorators, then hooks, then your services. The team states this order explicitly in Getting Started.",
+      "The application is a plugin. app.js exports a builder function and never calls listen(); server.js instantiates and starts it. The team gives this split as the first step of its own testing guide.",
+      "register() creates a new context. A decorator added inside a plugin is invisible to its parent and to its siblings - that is the default and it is the point.",
+      "Wrap with fastify-plugin only to break encapsulation on purpose, for something the whole app needs - a database handle, authentication. Reaching for it to fix a 'decorator is not defined' error is the signal the plugin is in the wrong place.",
+      "A route file is a plugin. Group routes by their URL prefix; when one file grows too large, make it a folder with an index that is itself a plugin.",
+      "Close the instance at the end of every test - the team calls this highly recommended, because external connections stay open otherwise."
+    ],
+    "layers": [
+      {
+        "name": "app (root plugin)",
+        "holds": "the builder function, autoload wiring, global error handler",
+        "must_not": "call listen(), read process.env directly at module scope",
+        "optional": false
+      },
+      {
+        "name": "plugins/",
+        "holds": "cross-cutting concerns wrapped in fastify-plugin: db, auth, config, observability",
+        "must_not": "declare routes",
+        "optional": false
+      },
+      {
+        "name": "routes/",
+        "holds": "encapsulated route plugins, their schemas and their own local hooks",
+        "must_not": "hold business rules that another entry point would need",
+        "optional": false
+      },
+      {
+        "name": "services/",
+        "holds": "business rules, callable without an HTTP request",
+        "must_not": "import the Fastify request or reply objects",
+        "optional": true
+      }
+    ],
+    "variants": [
+      {
+        "name": "autoload (fastify-cli scaffold)",
+        "cost": "the folder is the wiring, so a misplaced file registers silently in the wrong context",
+        "use_when": "the default, and what `fastify generate` produces - plugins/, routes/ and test/ discovered by @fastify/autoload"
+      },
+      {
+        "name": "explicit register()",
+        "cost": "every new plugin needs a line added by hand, and forgetting it fails at request time, not at boot",
+        "use_when": "you need the load order visible in one file, or the app is small enough that autoload hides more than it saves"
+      }
+    ],
+    "notes": "Layout: plugins/ for cross-cutting plugins and routes/ for endpoints, both autoloaded - cross-cutting concerns grouped by layer while endpoints are grouped by feature, which is why this is recorded as hybrid. Fastify prescribes more than most Node frameworks, but through the plugin system rather than through a document called an architecture guide: encapsulation is the architecture. The load order and the app/server split are stated by the team; the services/ layer below is this catalog's own doctrine for where business rules go, and must be presented as such."
+  },
+  "testing": {
+    "layers": [
+      {
+        "name": "unit",
+        "belongs_here": "business rules called directly, with no Fastify instance in sight",
+        "does_not_belong_here": "anything that needs a request object to run",
+        "cost": "cheapest",
+        "signal_you_picked_wrong": "the test builds an app to exercise a calculation"
+      },
+      {
+        "name": "route (inject)",
+        "belongs_here": "status codes, schema validation and serialization, auth decisions, error shapes - via fastify.inject()",
+        "does_not_belong_here": "a rule that has nothing to do with HTTP",
+        "cost": "cheap - no socket is opened",
+        "signal_you_picked_wrong": "the assertion never looks at the response"
+      },
+      {
+        "name": "integration (listen)",
+        "belongs_here": "anything inject() cannot reach: real sockets, streaming, keep-alive, HTTP/2, a client library under test",
+        "does_not_belong_here": "ordinary request-response assertions",
+        "cost": "slowest, binds a port",
+        "signal_you_picked_wrong": "inject() would have answered the same question"
+      }
+    ],
+    "commands": {
+      "full_suite": "npm test",
+      "single_file": "node --test test/<file>.test.js"
+    },
+    "rules": [
+      "inject() boots every registered plugin before the request runs - the team's stated reason to prefer it. A test that calls ready() manually first is usually testing the boot, not the route.",
+      "Test the schema boundary from both sides. Fastify validates and serializes from JSON Schema, so a field missing from the response schema is silently stripped - the handler is correct and the body is wrong.",
+      "Every route test asserts its authorization decision, including the routes that are public on purpose."
+    ],
+    "traps": [
+      "A response field that exists in the handler and not in the response schema disappears without error. The test that reads the handler's return value passes; the one that reads the HTTP body fails.",
+      "A decorator registered in a sibling plugin is undefined at request time, not at boot, so a green test suite can precede a 500 in production if the failing route had no test.",
+      "Not calling close() leaves database sockets open; the suite passes and then hangs, which reads as a slow test rather than a leak."
+    ],
+    "what_not_to_test": [
+      "that Fastify routes a URL to a handler",
+      "that JSON Schema validation rejects the wrong type - test YOUR schema's boundaries, not ajv"
+    ],
+    "notes": "The mechanism is the team's: app/server split, inject(), close() at the end. Which layer a given assertion belongs in is this catalog's doctrine."
+  },
+  "key_decisions": [
+    {
+      "decision": "autoload or explicit register()",
+      "why_it_is_forced": "Fastify ships @fastify/autoload and the fastify-cli scaffold uses it, but neither the docs nor the framework pick for you.",
+      "cost_of_getting_it_wrong": "It decides whether the folder layout is documentation or wiring. Changing it later means touching every plugin.",
+      "options": [
+        "@fastify/autoload",
+        "explicit register() calls"
+      ],
+      "reasonable_default": "autoload, which is what `fastify generate` produces"
+    },
+    {
+      "decision": "where business rules live",
+      "why_it_is_forced": "Fastify says nothing about this at all.",
+      "cost_of_getting_it_wrong": "Rules written inside route handlers are reachable only through HTTP, which forces every test up a layer and blocks reuse from a job or a CLI.",
+      "options": [
+        "a services/ layer",
+        "inside route handlers",
+        "inside encapsulated feature plugins"
+      ],
+      "reasonable_default": "a services/ layer that never imports request or reply"
+    },
+    {
+      "decision": "validation and serialization schemas: hand-written, generated, or derived from types",
+      "why_it_is_forced": "Fastify's speed depends on JSON Schema, but the team does not pick a way to author them.",
+      "cost_of_getting_it_wrong": "Choosing late means retrofitting schemas across every route, and until then response fields are silently stripped.",
+      "options": [
+        "hand-written JSON Schema",
+        "TypeBox",
+        "Zod with a converter",
+        "generated from OpenAPI"
+      ]
+    }
+  ],
+  "growth_thresholds": {
+    "route_handler_lines": "40 lines - past that the handler is holding business rules that belong in a service",
+    "plugins_wrapped_in_fastify_plugin": "if more than half of plugins/ is wrapped, encapsulation has been abandoned rather than chosen",
+    "register_depth": "3 levels - deeper and the context a decorator lives in stops being obvious from the file tree"
+  },
+  "dead_code_risks": [
+    "Files under an autoloaded directory are registered by their path, so nothing imports them - a static analyzer reports every route as unused.",
+    "Plugins referenced only through @fastify/autoload's ignorePattern or indexPattern configuration.",
+    "Hooks attached with addHook, which no call site references.",
+    "Schemas registered with addSchema and referenced by $ref string, not by import."
+  ],
+  "notes": "Verified on 2026-09-25 against the Fastify team's Getting Started, Plugins Guide, Testing guide and the fastify-cli README. No framework-team agent skill exists for building Fastify services; the two SKILL.md files in the fastify org belong to the documentation website."
+}

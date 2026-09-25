@@ -60,7 +60,7 @@
       "gap": "framework-team-skill",
       "why_it_matters": "No skill collection published by the Spring team was found on 2026-08-27. This is the largest gap in the registry: Spring Boot is a heavily convention-driven framework, exactly the kind where a framework-team skill pays the most.",
       "filled_by": null,
-      "fallback": "The mentor works from the codebase and consults Spring documentation on demand, and states plainly that no framework-team skill is available. If you find one, open an issue - see CONTRIBUTING.md."
+      "fallback": "Work from the codebase and consults Spring documentation on demand, and states plainly that no framework-team skill is available. If you find one, open an issue - see CONTRIBUTING.md."
     },
     {
       "gap": "test-strategy",

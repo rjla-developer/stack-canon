@@ -1,5 +1,35 @@
 # Changelog
 
+## 1.2.0
+
+### Added
+
+- **`swiftui` and `fastify`**, verified on 2026-09-25 against primary sources. Both were
+  reported missing by a real project that had the skill installed and found rule 1 useless
+  without them.
+
+  **SwiftUI carries an uncomfortable finding: Apple never names an architecture.** It
+  documents data flow in detail - state lives in the least common ancestor, `@Observable`
+  on model types, don't use `@State` for persistence - and there is no Apple page that says
+  MVVM, VIPER or TCA. Anyone presenting one as "the Apple way" is presenting an opinion.
+  The entry records Apple's rules as doctrine and everything above them as this catalog's
+  judgment. It also records that Apple ships **no API for unit-testing a view's body**, so
+  presentation rules have to move into the model or be reached through XCUITest.
+
+  **Fastify prescribes more than most Node frameworks, through the plugin system.** The
+  load order, the `app.js`/`server.js` split and `inject()` are the team's own words. The
+  `services/` layer is this catalog's.
+
+  Neither has a framework-team agent skill. The `fastify` org publishes two SKILL.md files
+  and both belong to its documentation website - the same trap already recorded for Astro.
+
+### Fixed
+
+- **The 1.1.0 sweep for leftovers missed `registry/`.** Eighteen strings across nine files
+  still said "the mentor", including the `recommended_by` enum in `schema.json`. The 1.1.0
+  changelog claimed that vocabulary was gone; it was gone from the scripts and the docs
+  only. The enum value is now `catalog`, which no stack file was using.
+
 ## 1.1.0
 
 ### Added

@@ -97,7 +97,7 @@
       "gap": "server-boundary-discipline",
       "why_it_matters": "The most expensive Next.js mistakes are boundary mistakes: data fetched in the wrong place, secrets crossing into a client component, a server action doing no authorization. No listed skill audits that boundary.",
       "filled_by": null,
-      "fallback": "The mentor reviews every 'use client' boundary and every server action for authorization on each feature that touches data."
+      "fallback": "Review every 'use client' boundary and every server action for authorization on each feature that touches data."
     }
   ],
   "testing": {
@@ -226,7 +226,7 @@
       "Every server action and route handler states its authorization decision explicitly, including 'public on purpose'. An unguarded handler looks exactly like an intentionally public one."
     ],
     "component_library": "Promote to shared at >=3 occurrences across >=2 routes or features. Below that, colocate in the segment that uses it - the framework makes colocation safe precisely so you do not have to decide early.",
-    "notes": "Next.js prescribes more structure than most frameworks, but through conventions rather than a document called an architecture guide: the folder IS the URL, reserved filenames (layout/page/loading/error/not-found/route/template) render in a fixed nesting order, a route is not public until page or route exists, _folder leaves routing and (folder) groups without changing the URL, and everything is a Server Component until 'use client'. The ONE thing left open is where non-route code goes: the docs name three strategies and decline to pick, saying 'choose a strategy that works for you and your team and be consistent across the project'. So the mentor's job here is not to impose a structure - it is to make sure one is chosen, written down and followed. The failure mode is not the wrong layout, it is an inconsistent one."
+    "notes": "Next.js prescribes more structure than most frameworks, but through conventions rather than a document called an architecture guide: the folder IS the URL, reserved filenames (layout/page/loading/error/not-found/route/template) render in a fixed nesting order, a route is not public until page or route exists, _folder leaves routing and (folder) groups without changing the URL, and everything is a Server Component until 'use client'. The ONE thing left open is where non-route code goes: the docs name three strategies and decline to pick, saying 'choose a strategy that works for you and your team and be consistent across the project'. So the skill's job here is not to impose a structure - it is to make sure one is chosen, written down and followed. The failure mode is not the wrong layout, it is an inconsistent one."
   },
   "key_decisions": [
     {

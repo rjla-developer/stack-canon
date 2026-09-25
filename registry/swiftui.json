@@ -1,0 +1,202 @@
+{
+  "stack": "swiftui",
+  "display_name": "SwiftUI (iOS / Apple platforms)",
+  "category": "mobile",
+  "detection": {
+    "files": [
+      "Package.swift",
+      "*.xcodeproj",
+      "*.xcworkspace",
+      "*App.swift"
+    ],
+    "markers": [
+      "import SwiftUI",
+      "@main",
+      "some View",
+      "@Observable"
+    ]
+  },
+  "last_verified": "2026-09-25",
+  "official_skills": [],
+  "gap_map": [
+    {
+      "gap": "a named app architecture",
+      "why_it_matters": "This is the headline difference from Flutter. Apple documents data flow in detail - where state lives, what owns it, how views observe it - and never names an architecture. There is no Apple page that says MVVM, VIPER or TCA. Anyone presenting one as 'the Apple way' is presenting a community opinion.",
+      "filled_by": null,
+      "fallback": "Apply the data-flow rules below, which ARE Apple's, and present any layering above them as an opinion with its cost."
+    },
+    {
+      "gap": "unit-testing a SwiftUI view",
+      "why_it_matters": "Apple ships no API for asserting on a view's body. Reading body outside a rendering context is not a supported operation. So the only Apple-supported ways to test UI are XCUITest through the accessibility tree, and testing the model the view reads.",
+      "filled_by": null,
+      "fallback": "Push presentation rules down into observable model types that CAN be tested, and use XCUITest for what only a running app can show."
+    },
+    {
+      "gap": "agent skills for Apple platforms",
+      "why_it_matters": "Neither apple nor swiftlang publishes a SKILL.md. Community skills for SwiftUI exist and some are good, but none carries maintainer authority - verify the publisher before treating any of them as doctrine.",
+      "filled_by": null,
+      "fallback": "Work from Apple's own documentation on demand, and say plainly that no framework-team skill exists."
+    }
+  ],
+  "architecture": {
+    "pattern": "observable model types with view-owned transient state",
+    "folder_strategy": "feature-first",
+    "recommended_by": "framework-team",
+    "source_url": "https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app",
+    "rules": [
+      "The data model is a separate type from the views. Apple's stated reason: it 'promotes modularity, improves testability, and helps make it easier to reason about how the app works'.",
+      "Apply the @Observable macro to model types. Apple states it explicitly: do not conform to the Observable protocol by itself, since that alone adds no observation functionality.",
+      "State lives in the least common ancestor of the views that need it - Apple's own wording for establishing a single source of truth.",
+      "@State is for transient UI state whose lifetime matches the view: a toggle, a filter, the selected row. Apple says plainly not to use state properties for persistent storage, because the life cycle of state variables mirrors the view life cycle.",
+      "A view only tracks what its body actually reads. A view reading `title` does not update when `author` changes - which means a body that reads more than it renders causes updates nobody asked for.",
+      "Pass a binding when a child must write; pass the value when it must only read."
+    ],
+    "layers": [
+      {
+        "name": "views",
+        "holds": "layout, @State for transient UI state, bindings passed down",
+        "must_not": "hold business rules, perform network calls, or persist anything",
+        "optional": false
+      },
+      {
+        "name": "observable models",
+        "holds": "the data the UI reads and the rules that change it, marked @Observable",
+        "must_not": "import SwiftUI view types or reference a specific screen",
+        "optional": false
+      },
+      {
+        "name": "services / repositories",
+        "holds": "network, persistence, system frameworks behind a protocol",
+        "must_not": "know which view triggered the call",
+        "optional": false
+      },
+      {
+        "name": "use cases",
+        "holds": "a rule that two or more models need and that belongs to neither",
+        "must_not": "exist before a second model needs it",
+        "optional": true
+      }
+    ],
+    "variants": [
+      {
+        "name": "observable models only",
+        "cost": "a model shared by several screens grows until someone splits it, and nothing warns you when that moment arrives",
+        "use_when": "the default. Apple's data-flow documentation describes exactly this and nothing above it"
+      },
+      {
+        "name": "MVVM with one view model per view",
+        "cost": "a layer Apple never asked for, and @Observable already does most of what the view model was invented to do",
+        "use_when": "the team already works this way, or screens have enough presentation logic that testing through the model is the only practical route"
+      },
+      {
+        "name": "TCA (The Composable Architecture)",
+        "cost": "community, not Apple. It shapes every file in the project and is expensive to leave",
+        "use_when": "the team wants exhaustive state testing and accepts a third-party dependency at the centre of the app"
+      }
+    ],
+    "notes": "Layout: feature-first, with shared model types kept outside the feature folders. Apple prescribes data flow and declines to prescribe an architecture - the same shape as Next.js on file organisation. The rules above are Apple's own words. The folder_strategy and the layers are this catalog's doctrine and must be presented as such, never as Apple's recommendation."
+  },
+  "testing": {
+    "layers": [
+      {
+        "name": "unit (Swift Testing)",
+        "belongs_here": "business rules and the observable model's state transitions, called directly",
+        "does_not_belong_here": "anything that needs a view to render",
+        "cost": "cheapest",
+        "signal_you_picked_wrong": "the test instantiates a View to reach a rule"
+      },
+      {
+        "name": "UI (XCUITest)",
+        "belongs_here": "what only a running app shows: navigation, what the user is actually told, that a control is reachable and enabled",
+        "does_not_belong_here": "a calculation that a unit test could reach",
+        "cost": "slowest by a wide margin, and the flakiest",
+        "signal_you_picked_wrong": "the assertion never touches the screen"
+      },
+      {
+        "name": "snapshot",
+        "belongs_here": "layout regressions across dynamic type sizes and locales",
+        "does_not_belong_here": "behaviour of any kind",
+        "cost": "cheap to run, expensive to maintain",
+        "signal_you_picked_wrong": "the snapshot is re-recorded whenever it fails"
+      }
+    ],
+    "commands": {
+      "full_suite": "xcodebuild test -scheme <scheme> -destination 'platform=iOS Simulator,name=iPhone 17'",
+      "single_file": "xcodebuild test -scheme <scheme> -only-testing:<Target>/<Suite>"
+    },
+    "rules": [
+      "A presentation rule is tested by moving it into the observable model, not by reaching into the view. If a rule can only be reached by rendering, that is an architecture finding.",
+      "Swift Testing and XCTest run side by side, so migration is incremental - Apple documents the interoperability explicitly. A mixed suite is not a defect.",
+      "Test the exact boundary from both sides. A rule that says '80% or more' needs 4/5 and 7/9.",
+      "Run the app and look at the screen. A green suite proves what you thought to assert; XCUITest asserts on the accessibility tree, which is not the same thing as what is drawn."
+    ],
+    "traps": [
+      "Reading a View's body outside a rendering context is not supported and is not a test. There is no Apple API for asserting on a view's body.",
+      "The accessibility tree and the rendered screen can disagree. A label present in the tree can be clipped, overlapped or invisible, and XCUITest will pass.",
+      "Simulator UI tests fail transiently on boot. Retry once before believing a tooling error - the same class of failure the Flutter entry records for emulators.",
+      "A view that never reads a property never updates when it changes. The model is correct, the test on the model passes, and the screen is stale."
+    ],
+    "what_not_to_test": [
+      "that SwiftUI re-renders when an @Observable property changes",
+      "that a @State toggle flips - that is testing the property wrapper, not your app",
+      "Apple's own system components"
+    ],
+    "notes": "The mechanism is Apple's: Swift Testing, XCTest interoperability, XCUITest. Which layer an assertion belongs in is this catalog's doctrine. The absence of a view-body testing API is a fact about the platform, not an omission from this file."
+  },
+  "key_decisions": [
+    {
+      "decision": "whether to add a view-model layer at all",
+      "why_it_is_forced": "Apple never names an architecture, so nothing in the platform decides this for you.",
+      "cost_of_getting_it_wrong": "Either way it reaches every screen. Adding it is a layer Apple did not ask for; not adding it means presentation rules have nowhere to go but the view.",
+      "options": [
+        "observable models only",
+        "MVVM, one view model per view",
+        "TCA"
+      ],
+      "reasonable_default": "observable models only, which is what Apple's data-flow documentation describes"
+    },
+    {
+      "decision": "persistence: SwiftData, Core Data, or files",
+      "why_it_is_forced": "Apple ships more than one first-party option and recommends none of them over the others for a given app.",
+      "cost_of_getting_it_wrong": "It shapes the model types themselves, so it is among the most expensive decisions to reverse.",
+      "options": [
+        "SwiftData",
+        "Core Data",
+        "files or a database behind a protocol"
+      ]
+    },
+    {
+      "decision": "minimum deployment target",
+      "why_it_is_forced": "Observation requires iOS 17 or later; below that the app is on ObservableObject and @Published.",
+      "cost_of_getting_it_wrong": "This decision silently selects the architecture - the data-flow rules in this entry do not apply below iOS 17.",
+      "options": [
+        "iOS 17+",
+        "iOS 16 or lower"
+      ],
+      "reasonable_default": "iOS 17+ when the audience allows it, because every rule in this entry assumes Observation"
+    },
+    {
+      "decision": "strict concurrency checking on or off",
+      "why_it_is_forced": "Swift lets you defer it, and the compiler stays quiet until you stop deferring.",
+      "cost_of_getting_it_wrong": "Turning it on later surfaces hundreds of errors at once across a codebase that compiled yesterday.",
+      "options": [
+        "on from day one",
+        "minimal, raised later"
+      ],
+      "reasonable_default": "on from day one on a new project"
+    }
+  ],
+  "growth_thresholds": {
+    "view_body_lines": "60 lines - past that the body is holding layout that belongs in extracted subviews",
+    "observable_model_properties": "12 - past that the model is serving more than one screen and wants splitting",
+    "view_files_without_a_model": "if a feature has views and no observable model, its rules are living in the views"
+  },
+  "dead_code_risks": [
+    "Types referenced only from a storyboard, XIB or Info.plist string.",
+    "SwiftUI PreviewProvider and #Preview code, referenced by nothing and compiled only in debug.",
+    "Members reached through @objc, selectors, or KVO key paths.",
+    "Cases of an enum decoded from JSON or persisted, never constructed in code.",
+    "Code behind #if canImport or platform conditionals that the current target does not compile."
+  ],
+  "notes": "Verified on 2026-09-25 against Apple's own SwiftUI documentation: Managing model data in your app, Model data, Managing user interface state, and Swift Testing's migration guide. The central honest finding is that Apple prescribes data flow and never names an architecture - unlike Flutter, whose team publishes a full architecture guide. Neither the apple nor the swiftlang GitHub organisation publishes an agent skill."
+}

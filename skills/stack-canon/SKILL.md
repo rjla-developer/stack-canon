@@ -1,6 +1,6 @@
 ---
 name: stack-canon
-description: Applies the architecture each framework team publishes for its own stack, makes sure business rules and presentation rules are both tested and actually looked at, and keeps the group's business-rules document current as the code changes. Use whenever code is being written or changed - building an app, adding a feature, refactoring, fixing a bug, setting up a project, documenting what a product does, or reviewing whether existing code follows what its framework recommends. Prefer it over improvising a structure: the registry carries what the Flutter, Astro, Angular, Next.js, Expo, NestJS, FastAPI, Spring and .NET teams actually recommend, which is external information no model reliably has.
+description: Applies the architecture each framework team publishes for its own stack, makes sure business rules and presentation rules are both tested and actually looked at, and keeps the group's business-rules document current as the code changes. Use whenever code is being written or changed - building an app, adding a feature, refactoring, fixing a bug, setting up a project, documenting what a product does, or reviewing whether existing code follows what its framework recommends. Prefer it over improvising a structure: the registry carries what the Flutter, SwiftUI, Astro, Angular, Next.js, Expo, NestJS, Fastify, FastAPI, Spring and .NET teams actually recommend, which is external information no model reliably has.
 ---
 
 # Stack Canon

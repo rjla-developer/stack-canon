@@ -1,6 +1,6 @@
 {
   "name": "stack-canon",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Applies the architecture each framework team publishes for its own stack, keeps business rules and presentation rules tested at their exact boundaries, and keeps the group's business-rules document current as the code changes.",
   "author": {
     "name": "rjla-developer",

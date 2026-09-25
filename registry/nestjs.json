@@ -64,7 +64,7 @@
       "gap": "framework-team-skill",
       "why_it_matters": "No NestJS-team skill collection was found on 2026-08-27. Community collections exist but none is canonical, so recommending one would push a stranger's opinions into every future decision on the project.",
       "filled_by": null,
-      "fallback": "The mentor works from the codebase and from NestJS documentation on demand, and states plainly that no framework-team skill is available for this stack."
+      "fallback": "Work from the codebase and from NestJS documentation on demand, and states plainly that no framework-team skill is available for this stack."
     },
     {
       "gap": "test-strategy",
@@ -76,7 +76,7 @@
       "gap": "authorization-boundary",
       "why_it_matters": "Guards and interceptors are easy to add and easy to forget. An endpoint with no guard looks identical to one that is intentionally public.",
       "filled_by": null,
-      "fallback": "The mentor requires every new controller route to declare its authorization decision explicitly, including 'public on purpose'."
+      "fallback": "Require every new controller route to declare its authorization decision explicitly, including 'public on purpose'."
     }
   ],
   "testing": {

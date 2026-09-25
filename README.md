@@ -29,7 +29,7 @@ building something the user never wanted.
 **Architecture comes from the framework team, not from taste.** For Flutter that is layered
 MVVM, feature-first, repositories that never know about each other, and a domain layer that
 stays absent until a second view model needs it — verified against
-`docs.flutter.dev/app-architecture/guide`, not a blog. Nine stacks carry the same
+`docs.flutter.dev/app-architecture/guide`, not a blog. Eleven stacks carry the same
 treatment.
 
 **Tests cover business rules and presentation rules, at the exact boundary.** A rule that

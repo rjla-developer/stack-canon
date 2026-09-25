@@ -32,7 +32,7 @@
       ],
       "source_url": "https://github.com/withastro/docs-mcp",
       "needs_verification": true,
-      "notes": "NOT a skill - it is an MCP server that serves Astro documentation on demand. Recorded here because it is the Astro team's only agent-facing artifact for people building with Astro, and the mentor should say it exists. The install route was not confirmed on 2026-09-11."
+      "notes": "NOT a skill - it is an MCP server that serves Astro documentation on demand. Recorded here because it is the Astro team's only agent-facing artifact for people building with Astro, and the skill should say it exists. The install route was not confirmed on 2026-09-11."
     },
     {
       "id": "delineas/astro-framework-agents",
@@ -58,13 +58,13 @@
       "gap": "skills for people building WITH Astro",
       "why_it_matters": "The withastro org publishes 22 SKILL.md files and every one of them is maintainer tooling - triage, releases, changesets, PR review, and an astro-developer skill whose own description says 'developing in the Astro monorepo'. None teaches you to build a site. Aggregator sites list these as 'Astro skills', which is how a search leads you to install contributor tooling.",
       "filled_by": null,
-      "fallback": "The mentor applies the architecture block below, which is verified against the Astro team's own documentation, and says plainly that no builder-facing skill exists."
+      "fallback": "Apply the architecture block below, which is verified against the Astro team's own documentation, and says plainly that no builder-facing skill exists."
     },
     {
       "gap": "test strategy",
       "why_it_matters": "Astro documents four runners and the Container API but takes no position on what deserves a test. The stack's own failure mode makes this worse: a component can render perfectly server-side and never hydrate, so the markup assertion passes while the button does nothing.",
       "filled_by": null,
-      "fallback": "The mentor applies the testing rules below."
+      "fallback": "Apply the testing rules below."
     }
   ],
   "testing": {
@@ -122,7 +122,7 @@
   "growth_thresholds": {
     "extract_shared_component": ">=3 occurrences of the same markup across >=2 pages",
     "split_page": "an .astro page file exceeds 200 lines",
-    "review_island_budget": ">3 client:load islands on one page - client:load blocks, and shipping several defeats the reason to be on Astro at all (mentor threshold, not the Astro team's)",
+    "review_island_budget": ">3 client:load islands on one page - client:load blocks, and shipping several defeats the reason to be on Astro at all (this catalog's threshold, not the Astro team's)",
     "extract_package": ">=2 sites or apps import the same internal module"
   },
   "architecture": {
@@ -189,7 +189,7 @@
       "Do not add a server island until something is measurably slow. server:defer exists for expensive work, and adding it early is the over-abstraction signal."
     ],
     "component_library": "Promote to a shared component at >=3 occurrences across >=2 pages. On Astro the bar is lower than elsewhere for a different reason: a shared .astro component costs zero client JavaScript, so the usual 'is the abstraction worth it' tradeoff loses its performance half.",
-    "notes": "Astro prescribes routing and hydration and leaves organisation open - the same shape as Next.js. src/pages is reserved; components/, layouts/, styles/ and images/ are explicitly described as conventions that are not required. So the mentor's job is not to impose a layout, it is to make sure one is chosen, written down and followed."
+    "notes": "Astro prescribes routing and hydration and leaves organisation open - the same shape as Next.js. src/pages is reserved; components/, layouts/, styles/ and images/ are explicitly described as conventions that are not required. So the skill's job is not to impose a layout, it is to make sure one is chosen, written down and followed."
   },
   "key_decisions": [
     {

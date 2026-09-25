@@ -102,7 +102,7 @@
       "gap": "offline-and-state-sync",
       "why_it_matters": "Mobile apps lose connectivity. Data-fetching guidance assumes the happy path; nothing audits what happens to in-flight writes when the network drops.",
       "filled_by": null,
-      "fallback": "The mentor requires an explicit offline decision for every feature that writes data, even if the decision is 'fail loudly'."
+      "fallback": "Require an explicit offline decision for every feature that writes data, even if the decision is 'fail loudly'."
     }
   ],
   "testing": {
@@ -210,7 +210,7 @@
       "Adding a native module or config plugin means every developer and every CI run needs a new build. Decide it deliberately."
     ],
     "component_library": "Promote at >=3 occurrences across >=2 screens. On mobile, prefer composition over configuration flags: a component with six booleans is cheaper to split than to keep.",
-    "notes": "The Expo docs describe src/app and file-based routing, and do not state where non-route code belongs. The component and feature placement above is the mentor's own doctrine - present it as such, not as Expo's recommendation."
+    "notes": "The Expo docs describe src/app and file-based routing, and do not state where non-route code belongs. The component and feature placement above is this catalog's own doctrine - present it as such, not as Expo's recommendation."
   },
   "key_decisions": [
     {

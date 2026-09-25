@@ -48,7 +48,7 @@
         "test-strategy"
       ],
       "source_url": "https://docs.flutter.dev/ai/agent-skills",
-      "notes": "Generates unit tests. It does not decide which layer a given behavior belongs in - that judgment stays with the mentor."
+      "notes": "Generates unit tests. It does not decide which layer a given behavior belongs in - that judgment stays with the skill."
     },
     {
       "id": "LambdaTest/agent-skills#flutter-testing-skill",
@@ -83,7 +83,7 @@
       "gap": "golden-test-environment",
       "why_it_matters": "Golden tests fail across platforms because of font and pixel rendering differences. A test suite that only passes on one machine erodes trust in the whole suite.",
       "filled_by": null,
-      "fallback": "The mentor requires goldens to run on a pinned CI image and treats local golden failures as environment noise until proven otherwise."
+      "fallback": "Require goldens to run on a pinned CI image and treats local golden failures as environment noise until proven otherwise."
     }
   ],
   "testing": {

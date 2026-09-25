@@ -109,7 +109,7 @@
       "gap": "database-and-migrations",
       "why_it_matters": "The listed skills stop at the request/response boundary. Schema changes are the single most common source of irreversible production damage in this stack.",
       "filled_by": null,
-      "fallback": "The mentor requires every schema change to ship with a reversible migration and a plan for the deploy window."
+      "fallback": "Require every schema change to ship with a reversible migration and a plan for the deploy window."
     }
   ],
   "testing": {
@@ -231,7 +231,7 @@
       "Every schema change ships with a reversible migration and a stated deploy order."
     ],
     "component_library": "Not applicable. Shared dependencies go in app/dependencies.py once a second router needs them - not before.",
-    "notes": "The FastAPI docs describe routers/ and dependencies.py, which is a type-first layout for a small app. For larger applications the mentor may propose package-per-feature, but must say that this departs from the documented structure."
+    "notes": "The FastAPI docs describe routers/ and dependencies.py, which is a type-first layout for a small app. For larger applications the skill may propose package-per-feature, but must say that this departs from the documented structure."
   },
   "key_decisions": [
     {
