@@ -21,6 +21,9 @@ a un chat sin historial.
 
 ## Histórico
 
+**[`prompt-novedades-linkedin.md`](prompt-novedades-linkedin.md)** — prompt permanente para
+ese chat: revisa `NEWS.md`, publica sólo si hay una entrada nueva, y calla si no.
+
 **[`brief-linkedin.md`](brief-linkedin.md)** — para pasar a un chat que redacte la
 publicación: contexto de la skill, los números, el ángulo narrativo y qué no se puede
 decir.

@@ -30,16 +30,26 @@ registry, and name in one line when you are done.
 
 ## 1. Architecture: what the framework team says, not what you prefer
 
-Read `registry/<stack>.json` and apply its `architecture` block. Fetch it live:
+Read the stack's entry and apply its `architecture` block. Fetch it live; if that fails,
+the same file ships with this skill at `${CLAUDE_PLUGIN_ROOT}/registry/<stack>.json`.
 
 ```bash
-curl -sSL --max-time 20 -o /tmp/dm.json \
-  https://raw.githubusercontent.com/rjla-developer/stack-canon/main/registry/<stack>.json
-python3 -c "import json;d=json.load(open('/tmp/dm.json'));print(json.dumps({k:d[k] for k in ('architecture','testing','key_decisions') if k in d},indent=1,ensure_ascii=False))"
+curl -sSL --max-time 20 -o /tmp/sc.json \
+  https://raw.githubusercontent.com/rjla-developer/stack-canon/main/registry/<stack>.json \
+  || cp "${CLAUDE_PLUGIN_ROOT}/registry/<stack>.json" /tmp/sc.json
+python3 -c "import json;d=json.load(open('/tmp/sc.json'));print(json.dumps({k:d[k] for k in ('architecture','testing','key_decisions','gap_map') if k in d},indent=1,ensure_ascii=False))"
 ```
 
-If the fetch fails, use the copy shipped with this skill and **say the date out loud**:
-"using a catalog from `<synced_at>`, it may be out of date."
+On the bundled copy, **say the date out loud** from that file's `last_verified`: "using a
+catalog entry verified on `<last_verified>`, it may be out of date."
+
+**If the stack is not in the registry, do not improvise and do not stop there.** Read the
+framework's own documentation now, apply it, and write a draft entry to
+`stack-canon-<stack>.json` in the project root: every field you confirmed with the
+`source_url` you opened, `needs_verification: true` on every field you did not, and
+nothing you could have written from general knowledge. Say the file is a draft for
+`github.com/rjla-developer/stack-canon`, not doctrine. Research is cheapest in the run
+where the right docs are already open.
 
 What to take from it:
 
@@ -51,9 +61,6 @@ What to take from it:
 | `variants` | The real choice. Pick one, say which, and say what it costs. |
 | `rules` | Checkable invariants. These go verbatim into the project's `CLAUDE.md`. |
 | `recommended_by` | `framework-team` is doctrine. Anything else is an opinion - present it as one. |
-
-**Never invent architecture guidance.** If the stack is not in the registry, say so, work
-from the framework's own documentation, and offer to open an issue.
 
 Measured over three feature additions on the same app: applying this kept duplicated
 blocks flat (6 → 6 → 5) and the longest `build()` under its threshold (91 → 103 → 99),
@@ -114,7 +121,7 @@ Write entities, flows, rules with their exact bounds, valid states, and who may 
 **Never how it is built.** That is `CLAUDE.md`, and a rule kept in two places rots in one of
 them. The boundary that goes into the test goes into the document as the same number, in
 the same change. Extend the existing file in its own style; only if the group has none,
-start from `templates/BUSINESS-RULES.md.template`.
+start from `${CLAUDE_PLUGIN_ROOT}/templates/BUSINESS-RULES.md.template`.
 
 It is a separate repository, so it needs its own commit, naming the code change that caused
 it. **If it is not on disk, do not skip it and do not report it as done.** Print the exact
@@ -126,7 +133,7 @@ source of business truth across repositories is the stated goal.
 ## The project's CLAUDE.md
 
 Write the architecture rules and the exact boundaries into `CLAUDE.md` from
-`templates/CLAUDE.md.template`, **before writing code**, so they constrain the work rather
+`${CLAUDE_PLUGIN_ROOT}/templates/CLAUDE.md.template`, **before writing code**, so they constrain the work rather
 than describe it afterwards. Keep it under 150 lines.
 
 Include only what cannot be inferred from the code: exact commands, the architecture rules

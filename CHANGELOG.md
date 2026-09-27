@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.3.0
+
+### Fixed
+
+- **The skill referenced `registry/` and `templates/` as bare relative paths**, which resolve
+  against the user's project, not the plugin. A user reported the installed copy as shipping
+  only `SKILL.md`; the files are shipped, but nothing in the skill said where. Now
+  `${CLAUDE_PLUGIN_ROOT}`, which Claude Code resolves anywhere in a skill's Markdown body,
+  and the live fetch falls back to the bundled copy in the same command.
+- **The skill told you to state a date from `synced_at` in a stack file.** That field only
+  exists in `index.json`; a stack file carries `last_verified`. Same report.
+
+### Added
+
+- **A missing stack now produces a draft catalog entry.** The skill reads the framework's own
+  documentation in that run, applies it, and writes `stack-canon-<stack>.json` to the project
+  root with `source_url` on every confirmed field and `needs_verification: true` on the rest.
+  It is explicitly a draft for review, never doctrine: a catalog that fills itself is
+  indistinguishable from improvising, which is what this skill exists to prevent.
+- **[`NEWS.md`](NEWS.md)** — what changed, for people who use the skill rather than build it,
+  with an explicit judgment per entry on whether it is worth telling anyone about.
+
 ## 1.2.0
 
 ### Added

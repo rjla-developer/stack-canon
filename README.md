@@ -10,6 +10,8 @@ was cut; the third was added afterwards for multi-repository groups and is marke
 throughout as unmeasured. The experiments — including the ones this project lost — are in
 [evidencias/de-pocas-pulgas/](evidencias/de-pocas-pulgas/).
 
+What changed lately, and whether it matters to you: [NEWS.md](NEWS.md).
+
 ## Install
 
 ```bash
