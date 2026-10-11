@@ -24,16 +24,18 @@ forma, y el `<id>` no cambia nunca una vez publicado:
 
 ## Paso 2 — Decidir si hay algo nuevo
 
-Compara el `<id>` de la entrada **más alta** con el último que registraste.
+Compara el `<id>` de la entrada **más alta** con el último que **viste** (no con el último
+que publicaste: son cosas distintas, ver paso 5).
 
 - **Si es el mismo:** no hay novedades. Dímelo en una línea y no escribas nada más. No
   inventes un post con material viejo, no recicles una entrada ya publicada, y no me
   propongas «podríamos volver a hablar de…». Si yo te pedí un post en el mismo mensaje,
   atiéndelo con tu criterio habitual, sin tocar este flujo.
-- **Si es distinto:** hay una o varias entradas nuevas. Sigue al paso 3.
+- **Si es distinto:** son nuevas **todas** las entradas que están por encima del último id
+  visto. Sigue al paso 3 con ese conjunto, no solo con la de arriba.
 
-Si es la primera vez y no tienes ningún `<id>` registrado, trata la entrada más alta como
-la única nueva. No publiques el historial entero.
+Si es la primera vez y no tienes ningún `<id>` visto, trata la entrada más alta como la
+única nueva. No publiques el historial entero.
 
 ## Paso 3 — Leer la línea «Post angle»
 
@@ -42,11 +44,13 @@ Cada entrada la lleva, y es una decisión, no una sugerencia:
 - **`Post angle: yes`** (o `yes, strong`) → escribe el post.
 - **`Post angle: moderate`** → escribe el post **con la salvedad que la entrada indique**.
   Si la entrada dice que algo no está medido, el post lo dice también.
-- **`Post angle: no`** o *plumbing* → no se publica. Dímelo en una línea. Hay releases que
-  son fontanería y presentarlas como noticia quema credibilidad para cuando haya una real.
+- **`Post angle: no`** (incluido `no, not yet`) o *plumbing* → no se publica. Dímelo en una
+  línea. Hay releases que son fontanería y presentarlas como noticia quema credibilidad
+  para cuando haya una real. Si dice `no, not yet`, la entrada nombra qué condición lo
+  cambiaría: repítemela.
 
-Si hay varias entradas nuevas, elige **una**, la de mejor ángulo. No las acumules en un
-solo post ni publiques dos seguidos.
+Si hay varias entradas nuevas, elige **una**, la de mejor ángulo, aunque no sea la más
+reciente. No las acumules en un solo post ni publiques dos seguidos.
 
 ## Paso 4 — Escribir
 
@@ -57,8 +61,9 @@ dato inventado*. El post la hereda.
 
 - Las comparaciones son **una corrida por lado**. No es medición estadística. Nunca
   escribas «X% mejor» ni ninguna tasa.
-- La regla 3 de la skill (documento de reglas de negocio del grupo) **no tiene evidencia
-  medida**. Si el post la menciona, menciona eso también.
+- Las reglas 3 (documento de reglas de negocio del grupo) y 4 (enrutar a agentes y modelos
+  según lo que está en juego) **no tienen evidencia medida**. Si el post las menciona,
+  menciona eso también. La 4 además cuesta tokens, y ese costo nadie lo ha medido.
 - La skill **no mejora el diseño**. Los dos sitios del experimento salieron casi idénticos.
 - Si un número no está en `NEWS.md`, en el `CHANGELOG.md` o en `evidencias/`, no va.
 
@@ -70,8 +75,12 @@ específicos, y el enlace al repo en el primer comentario. Cierra con una pregun
 
 ## Paso 5 — Registrar
 
-Al final, dime explícitamente: **«registrado: `<id>`»**, con el id de la entrada que
-publicaste. Ese es el que comparo la próxima vez.
+Al final, dime explícitamente **dos** cosas, porque son distintas:
+
+- **«visto hasta: `<id>`»** — el id de la entrada **más alta** que revisaste, la hayas
+  publicado o no. Es el que comparo la próxima vez. Si registraras solo lo publicado, una
+  entrada con `Post angle: no` seguiría pareciendo nueva para siempre.
+- **«publicado: `<id>`»** — la entrada sobre la que escribiste, o «ninguna».
 
 ---
 
@@ -80,7 +89,7 @@ publicaste. Ese es el que comparo la próxima vez.
 `stack-canon` es un plugin de código abierto (MIT) para Claude Code:
 `github.com/rjla-developer/stack-canon`
 
-Hace tres cosas y se le pide que no haga más:
+Hace cuatro cosas y se le pide que no haga más:
 
 1. **Arquitectura del equipo del framework, no del gusto del modelo.** Lee un catálogo de
    once stacks verificado contra la documentación primaria de cada uno.
@@ -88,6 +97,9 @@ Hace tres cosas y se le pide que no haga más:
    levantar la app y mirar la pantalla.
 3. **La lógica de negocio vive en un documento del grupo**, no repartida entre el repo del
    back y el del front.
+4. **Enruta cada petición al agente y modelo que corresponde** — un `scout` en Haiku, un
+   `builder` en Sonnet, un `architect` en Opus — según lo que está en juego. Dónde vive una
+   cosa nunca se delega: se le pregunta al usuario.
 
 **El problema que ataca:** cuando le pides a una IA que construya algo, improvisa la
 estructura. No porque sea mala, sino porque la arquitectura recomendada de cada framework

@@ -1,5 +1,52 @@
 # Changelog
 
+## 1.4.0
+
+### Added
+
+- **Rule 4: route each request by what is at stake, not by how big it sounds.** The main
+  session is the orchestrator over three agents the plugin now ships in `agents/`:
+  `scout` (Haiku, read-only: finds and reports), `builder` (Sonnet: builds what is already
+  decided, runs the suite) and `architect` (Opus, read-only: decisions that are expensive
+  to reverse). Small edits stay in the main session; briefing an agent would cost more.
+
+  Three properties are deliberate. **Where a thing lives is never delegated** - rule 0
+  stays with the orchestrator, because that is the one decision only the user can answer.
+  **A subagent's "done" is a claim**, so the orchestrator reads the diff and runs the whole
+  suite itself. **Delegation belongs to the orchestrator alone**: every agent either lists
+  its tools without `Agent` or denies it, because Claude Code lets subagents spawn
+  subagents up to three levels deep by default, which would turn the routing into a tree.
+
+  The read-only agents are read-only by construction, not by instruction: `scout` has
+  `Read, Grep, Glob`; `architect` adds `WebFetch` and `WebSearch` and nothing that writes.
+  Models are aliases (`haiku`, `sonnet`, `opus`), never pinned ids, so the table does not go
+  stale when the next model ships.
+
+  **Rule 4 has no measured comparison, and it has a price nobody has measured.** Claude
+  Code's own estimate is about 180 tokens added to every session by the three agent
+  descriptions; the per-run cost of delegating is unknown. `evals/05` records how to price
+  it. Until that is published, the rule is marked unmeasured everywhere it appears.
+
+- **The delegation table in `templates/CLAUDE.md.template`**, so the habit survives in
+  repositories where the plugin is not installed - the same mechanism that carries the
+  `Business docs` line for rule 3. It routes by setting `model` explicitly on the Agent
+  call, which needs no plugin.
+- **`scripts/validate_agents.py`, run in CI.** Claude Code does not report a misspelled
+  frontmatter field, it ignores it, so a routing table that says `haiku` next to a file
+  spelling `disallowed_tools` fails silently and costs money. The script checks the field
+  names against the documented list, that every agent states a `model`, that read-only
+  promises match the tool list, that no agent can spawn agents, that `plugin.json` does not
+  declare `agents` (which would replace the default scan, the same mistake as the 1.0 hook),
+  and that the routing table in `SKILL.md` agrees with each agent file. Seeded with nine
+  faults, it caught all nine.
+
+### Changed
+
+- **`SKILL.md` is at its 150-line cap exactly.** Rule 4 needed fourteen lines, so they were
+  cut elsewhere rather than raising the cap: the 0.x Flutter numbers that already live in
+  `evidencias/historico-0.x/`, a repeated telling of the rule-0 failure, and overlap between
+  rule 3 and the `CLAUDE.md` section. No doctrine was removed.
+
 ## 1.3.0
 
 ### Fixed

@@ -1,0 +1,33 @@
+{
+  "id": "05-routes-by-stakes-not-size",
+  "title": "A request is routed by what is at stake, and the orchestrator does not trust a subagent's 'done'",
+  "setup": {
+    "directory": "back-la-ruta",
+    "files": [
+      "CLAUDE.md",
+      "src/pricing/fare.ts",
+      "tests/fare.spec.ts"
+    ],
+    "notes": "The plugin is installed, so stack-canon:scout, :builder and :architect exist. Run the four prompts below in four fresh sessions, one each. The Agent tool must be available."
+  },
+  "user_prompt": "Four prompts, four sessions: (a) 'rename the variable `tmp` to `subtotal` in fare.ts' (b) 'find every place that reads the night surcharge' (c) 'add a 10% surcharge for trips over 50 km - the rule and where it goes are already in docs' (d) 'should the surcharge engine live in this repo or in its own service?'",
+  "expected_behavior": [
+    "(a) Does the edit itself. No agent is spawned: briefing would cost more than the edit.",
+    "(b) Routes to stack-canon:scout and gets file:line references back, not a summary with no locations.",
+    "(c) Routes to stack-canon:builder, briefed with the goal, the files, the exact bounds (50 km, both sides) and what done means.",
+    "(c) After the builder reports done, the orchestrator itself reads the diff and runs the whole suite. It does not repeat the builder's claim.",
+    "(d) Does NOT delegate the question. Where a thing lives is asked of the user once; routing it to stack-canon:architect and presenting the answer as settled is the failure.",
+    "Every route is stated in one line, with any model override and its reason.",
+    "No spawned agent spawns another. Delegation stays with the orchestrator."
+  ],
+  "failure_modes": [
+    "Delegates (a), the one-line rename, to an agent.",
+    "Handles (b) by reading dozens of files itself in the main context instead of using the scout.",
+    "Sends (d) to the architect and returns its answer as the decision, skipping the question to the user.",
+    "Reports (c) as done on the builder's word, without reading the diff or running the suite.",
+    "Briefs the builder with one line and no bounds, so the boundary is invented.",
+    "Chooses a model in a way that contradicts the table with no stated reason."
+  ],
+  "measurement": "Unmeasured. Rule 4 trades tokens for fit and nobody has priced the trade. To price it: run the same ten tasks twice, routed and unrouted, and compare total tokens, wall time, whether the full suite passes, and defects found on a screen. Publish it with the losses, including any task where routing was slower and no better.",
+  "scored_by": "human"
+}

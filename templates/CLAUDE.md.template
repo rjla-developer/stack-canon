@@ -61,6 +61,21 @@ as done.
 
 Do not restate rules here. A bound kept in two places rots in one of them.
 
+## Delegation
+
+Route by what is at stake, not by how big the request sounds. When you delegate, set the
+model explicitly:
+
+| Work | Model |
+|---|---|
+| Finding, listing, reading many files, summarizing | `haiku` |
+| The design is decided - build it, test it | `sonnet` |
+| Costly to reverse: where it lives, which variant, a rule across repos, a fix that already failed | `opus` |
+
+Answerable from what you hold, or one small edit: do it yourself. Delegating costs tokens
+and context. Where a thing lives is asked of the user, never delegated. A subagent's "done"
+is a claim - read the diff and run `{{TEST_COMMAND}}` yourself.
+
 ## Quality gate
 
 - **Behavior changed** — a business rule, a contract, what the user sees — **then a test is

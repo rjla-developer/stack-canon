@@ -1,13 +1,14 @@
 # stack-canon
 
-A Claude Code plugin that does three things and refuses to do more: it applies the
+A Claude Code plugin that does four things and refuses to do more: it applies the
 architecture **each framework team publishes for its own stack**, it makes sure business
-rules and presentation rules are both tested *and actually looked at*, and it keeps the
-group's business-rules document current as the code changes.
+rules and presentation rules are both tested *and actually looked at*, it keeps the
+group's business-rules document current as the code changes, and it routes each request to
+the agent and model that fits what is at stake.
 
 It used to do nine things. Five measured experiments supported two of them, so the rest
-was cut; the third was added afterwards for multi-repository groups and is marked
-throughout as unmeasured. The experiments — including the ones this project lost — are in
+was cut; the third and fourth were added afterwards and are marked throughout as
+unmeasured. The experiments — including the ones this project lost — are in
 [evidencias/de-pocas-pulgas/](evidencias/de-pocas-pulgas/).
 
 What changed lately, and whether it matters to you: [NEWS.md](NEWS.md).
@@ -45,6 +46,17 @@ those rules, the group's business-rules document is updated in the same task and
 there, with the same exact bound the test uses. The path lives in each repository's
 `CLAUDE.md`, which is what keeps the habit alive in repositories where this skill is not
 installed. This rule is newer than the two above and has no comparison behind it yet.
+
+**Each request is routed by what is at stake, not by how big it sounds.** The main session
+acts as orchestrator over three agents the plugin ships: a `scout` (Haiku) that finds and
+reports, a `builder` (Sonnet) that builds what is already decided, and an `architect`
+(Opus) for decisions that are expensive to reverse. Small edits stay in the main session,
+because briefing an agent would cost more than the edit. Where a thing lives is never
+delegated — it is asked of the user — and a subagent's "done" is treated as a claim: the
+orchestrator reads the diff and runs the suite itself. **This rule trades tokens for fit,
+and nobody has measured the trade.** Claude Code estimates the three agent descriptions at
+about 180 tokens added to every session. The delegation table is also written into each
+project's `CLAUDE.md`, so the habit survives where the plugin is not installed.
 
 ## Does it work?
 

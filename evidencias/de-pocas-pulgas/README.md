@@ -161,6 +161,9 @@ baseline sacó el suyo a `src/scripts/` como archivos aparte.
 - **Ocho de los nueve stacks del catálogo** nunca se han probado en una corrida.
 - **La regla 3** — mantener el documento de reglas de negocio del grupo — se agregó en
   1.1.0, después de estas corridas. Nada de este registro la mide.
+- **La regla 4** — enrutar cada petición a un agente y un modelo según lo que está en
+  juego — se agregó en 1.4.0. Nada de este registro la mide, y tiene un costo en tokens que
+  nadie ha medido. `evals/05` describe cómo medirlo.
 
 # Ruido conocido del método
 

@@ -12,6 +12,39 @@ the last one it saw.
 
 ---
 
+## 2026-10-11-multi-agent-routing · 2026-10-11 · The orchestrator picks the agent and the model
+
+**v1.4.0.** A fourth rule: each request is routed by what is at stake, not by how big it
+sounds. The main session acts as orchestrator over three agents the plugin now ships.
+
+**What you get:** a `scout` on Haiku that finds and reports, a `builder` on Sonnet that
+builds what is already decided and runs the suite, and an `architect` on Opus for decisions
+that are expensive to reverse. A one-line rename never leaves the main session, because
+briefing an agent would cost more than the edit.
+
+**Three limits are the point, not the fine print.** Where a thing lives is never delegated:
+it is asked of the user, because that is the one decision only they can answer. A
+subagent's "done" is a claim, so the orchestrator reads the diff and runs the whole suite
+itself. And only the orchestrator delegates - Claude Code lets subagents spawn subagents
+three levels deep by default, which would turn a routing table into a tree, so every agent
+is built to be unable to.
+
+The two read-only agents are read-only by construction: their tool lists contain nothing
+that writes. A promise in a description would have been cheaper and worth less. A validator
+now fails the build if a description promises read-only and the tools disagree.
+
+**What is not known.** Nobody has measured whether this saves money, time or defects. It
+adds about 180 tokens to every session by Claude Code's own estimate, and each delegation
+costs tokens and context the saved model tier may or may not repay. The rule says so in the
+skill, the README, the changelog and here.
+
+**Post angle: no, not yet.** The project's whole claim is that it only says what it has
+measured, and this is an unmeasured cost optimisation - exactly the kind of post that
+sounds impressive and cannot be checked. What would change the answer is `evals/05`: ten
+tasks run routed and unrouted, compared on tokens, time, suite result and defects found,
+published with the tasks where routing lost. A post about *that result* is a strong one,
+whichever way it lands. A post about the feature before it is not.
+
 ## 2026-09-27-plugin-root-paths · 2026-09-27 · The skill pointed at files it gave you no way to find
 
 **v1.3.0.** A bug report, a fix, and a new behaviour that came out of the same thread.

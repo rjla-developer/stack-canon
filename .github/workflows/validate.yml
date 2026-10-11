@@ -32,6 +32,9 @@ jobs:
       - name: Validate the skills
         run: python3 scripts/validate_skills.py
 
+      - name: Validate the agents and the routing table
+        run: python3 scripts/validate_agents.py
+
       - name: Check every eval scenario parses and declares expectations
         run: |
           python3 - <<'PY'
